@@ -1,0 +1,412 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #000080; /* Navy background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+/* Robot Styling */
+.robot {
+    width: 150px; /* Smaller overall size */
+    height: 220px;
+    position: relative;
+    animation: float 4s ease-in-out infinite;
+    transform-origin: center bottom;
+}
+
+.robot-head {
+    width: 90px; /* Smaller head */
+    height: 90px;
+    background: linear-gradient(135deg, #87CEEB, #FFD700); /* Sky blue to yellow gradient */
+    border-radius: 45px;
+    position: relative;
+    margin: 0 auto;
+    animation: headBounce 2s infinite;
+    box-shadow: 0 0 20px rgba(135, 206, 235, 0.6), 0 0 40px rgba(255, 215, 0, 0.3);
+    border: 4px solid #FFF;
+    transform-origin: center bottom;
+}
+
+.eyes {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 25px;
+}
+
+.eye {
+    width: 28px;
+    height: 28px;
+    background: #FFF;
+    border-radius: 50%;
+    position: relative;
+    border: 2px solid #1E90FF;
+    overflow: hidden;
+    animation: eyeWiggle 2s infinite;
+}
+
+.eye::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: #FFD700; /* Yellow */
+    border-radius: 50%;
+    top: 5px;
+    left: 5px;
+    animation: pupilBounce 3s infinite;
+}
+
+/* Add rosy cheeks */
+.cheeks {
+    position: absolute;
+    width: 100%;
+    top: 45px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.cheek {
+    width: 18px;
+    height: 8px;
+    background: #FFB6C1;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: blush 2s infinite;
+}
+
+.mouth {
+    width: 25px;
+    height: 12px;
+    border: 3px solid #FFD700; /* Yellow */
+    border-radius: 0 0 25px 25px;
+    border-top: 0;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: mouthWiggle 2s infinite;
+}
+
+/* Add heart antenna */
+.antenna {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 15px;
+    background: #FFD700;
+    border-radius: 50%;
+    border: 2px solid #FFF;
+    animation: antennaBounce 2s infinite;
+}
+
+.robot-body {
+    width: 100px;
+    height: 110px;
+    background: linear-gradient(135deg, #87CEEB, #FFD700);
+    border-radius: 50px 50px 30px 30px;
+    margin: 5px auto;
+    position: relative;
+    box-shadow: 0 0 20px rgba(135, 206, 235, 0.6), 0 0 40px rgba(255, 215, 0, 0.3);
+    border: 4px solid #FFF;
+    animation: bodyWobble 3s infinite;
+}
+
+.arm {
+    width: 20px;
+    height: 70px;
+    background: linear-gradient(135deg, #87CEEB, #FFD700);
+    position: absolute;
+    top: 15px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(137, 207, 240, 0.3);
+    border: 3px solid #FFF;
+}
+
+.arm.left {
+    left: -35px;
+    animation: waveLeft 2s infinite;
+}
+
+.arm.right {
+    right: -35px;
+    animation: waveRight 2s infinite;
+}
+
+/* Chat Container Styling */
+.chat-container {
+    width: 400px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(135, 206, 235, 0.6); /* Glowing effect */
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+}
+
+.chat-box {
+    height: 400px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.message {
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 15px;
+    max-width: 80%;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.user-message {
+    background: #e3f2fd;
+    margin-left: auto;
+}
+
+.bot-message {
+    background: #f5f5f5;
+}
+
+.input-area {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+button {
+    padding: 10px 20px;
+    background: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #1976d2;
+}
+
+/* Animations */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes blink {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.1); }
+}
+
+@keyframes talk {
+    0%, 100% { transform: scaleX(1); }
+    50% { transform: scaleX(1.2); }
+}
+
+@keyframes waveLeft {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+}
+
+@keyframes waveRight {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-15deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Add legs */
+.legs {
+    display: flex;
+    justify-content: space-between;
+    width: 100px;
+    margin: 0 auto;
+}
+
+.leg {
+    width: 22px;
+    height: 60px;
+    background: linear-gradient(135deg, #87CEEB, #FFD700);
+    border-radius: 20px;
+    animation: legBounce 2s infinite;
+    box-shadow: 0 0 10px rgba(137, 207, 240, 0.3);
+    border: 3px solid #FFF;
+}
+
+.leg.left {
+    animation-delay: 1s;
+}
+
+/* Add microphone button */
+.mic-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #2196f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.mic-button i {
+    color: white;
+    font-size: 20px;
+}
+
+.mic-button.recording {
+    background: #ff4444;
+    animation: pulse 1.5s infinite;
+}
+
+/* Add new animations */
+@keyframes walk {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 68, 68, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); }
+}
+
+/* Add new cute animations */
+@keyframes wobble {
+    0%, 100% { transform: translateX(-50%) rotate(0deg); }
+    50% { transform: translateX(-50%) rotate(5deg); }
+}
+
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(0) rotate(0deg); 
+    }
+    25% { 
+        transform: translateY(-5px) rotate(-2deg); 
+    }
+    75% { 
+        transform: translateY(-8px) rotate(2deg); 
+    }
+}
+
+/* Update robot container animation */
+.robot {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Add sparkles */
+.sparkles {
+    display: none;
+}
+
+/* Add more cute animations */
+@keyframes headBounce {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+}
+
+@keyframes eyeWiggle {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes pupilBounce {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, -2px); }
+    75% { transform: translate(2px, 2px); }
+}
+
+@keyframes blush {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 0.9; }
+}
+
+@keyframes mouthWiggle {
+    0%, 100% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.1, 0.9); }
+}
+
+@keyframes bodyWobble {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-2deg); }
+    75% { transform: rotate(2deg); }
+}
+
+@keyframes legBounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(3deg); }
+}
+
+/* Update antenna to be simpler */
+.antenna {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 15px;
+    background: #FFD700;
+    border-radius: 50%;
+    border: 2px solid #FFF;
+    animation: antennaBounce 2s infinite;
+}
+
+/* Remove the star from antenna */
+.antenna::before {
+    display: none;
+}
+
+/* Remove heart decorations from body */
+.robot-body::before,
+.robot-body::after {
+    display: none;
+}
+
+/* Remove related animations that are no longer needed */
+@keyframes starTwinkle {
+    display: none;
+}
+
+@keyframes sparkle {
+    display: none;
+}
+
+@keyframes heartBeat {
+    display: none;
+}
+
+@keyframes antennaBounce {
+    0%, 100% { transform: translateX(-50%) rotate(0deg); }
+    50% { transform: translateX(-50%) rotate(15deg); }
+} 
